@@ -19,6 +19,12 @@ npm run build
 
 El repo incluye un workflow de GitHub Actions para publicar gratis en GitHub Pages desde la rama `master`.
 
+Antes del primer despliegue, en GitHub hay que activar:
+
+```text
+Settings > Pages > Source > GitHub Actions
+```
+
 URL esperada:
 
 ```text
