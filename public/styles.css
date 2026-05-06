@@ -411,10 +411,23 @@ input {
   margin-bottom: 34px;
 }
 
+.section-link {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  border-bottom: 1px solid rgba(198, 255, 70, 0.54);
+  color: var(--lime);
+  font-weight: 800;
+}
+
 .article-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+.latest-cards {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .article-card {
@@ -826,6 +839,11 @@ input {
   .guide-inner h2,
   .newsletter h2 {
     font-size: 2.9rem;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
   }
 
   .opinion-strip,
