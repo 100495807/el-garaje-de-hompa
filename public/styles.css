@@ -430,6 +430,10 @@ input {
     box-shadow 240ms ease;
 }
 
+.article-card-link {
+  display: block;
+}
+
 .article-card:hover {
   border-color: rgba(198, 255, 70, 0.52);
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.36);
@@ -692,6 +696,46 @@ input {
   line-height: 1.85;
 }
 
+.archive-hero {
+  display: grid;
+  min-height: 58vh;
+  padding: 140px 34px 72px;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.12);
+  background:
+    linear-gradient(90deg, rgba(10, 10, 10, 0.94), rgba(10, 10, 10, 0.5)),
+    url("https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=2200&q=84")
+      center / cover;
+}
+
+.archive-hero-content {
+  width: min(900px, 100%);
+  align-self: end;
+}
+
+.archive-hero h1 {
+  margin: 0;
+  max-width: 850px;
+  font-size: 4.6rem;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.archive-hero p:last-child {
+  max-width: 720px;
+  margin: 24px 0 0;
+  color: rgba(245, 240, 232, 0.8);
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.archive-list-section {
+  padding-top: 72px;
+}
+
+.archive-list {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
 [data-animate] {
   opacity: 0;
   transform: translateY(24px);
@@ -730,6 +774,10 @@ input {
 
   .article-hero h1 {
     font-size: 3.6rem;
+  }
+
+  .archive-hero h1 {
+    font-size: 3.4rem;
   }
 
   .hero-panel {
@@ -826,6 +874,16 @@ input {
 
   .article-card img {
     height: 230px;
+  }
+
+  .archive-hero {
+    min-height: 52vh;
+    padding: 112px 18px 56px;
+  }
+
+  .archive-hero h1 {
+    font-size: 2.45rem;
+    line-height: 1;
   }
 
   .article-hero {

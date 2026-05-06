@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const articles = (await getCollection("articulos", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout
+  title="Archivo | El Garaje de Hompa"
+  description="Archivo de articulos publicados en El Garaje de Hompa."
+>
+  <main>
+    <section class="archive-hero">
+      <div class="archive-hero-content">
+        <p class="issue-label" data-animate>Archivo</p>
+        <h1 data-animate>Todos los coches que han pasado por el garaje.</h1>
+        <p data-animate>
+          Analisis, guias de compra y opiniones publicadas. La idea es que este archivo acabe siendo una
+          biblioteca viva para consultar antes de comprar, discutir o enamorarse de un coche.
+        </p>
+      </div>
+    </section>
+
+    <section class="section archive-list-section">
+      <div class="article-cards archive-list">
+        {
+          articles.map((article) => (
+            <a class="article-card article-card-link" data-animate href={`${base}articulos/${article.id}/`}>
+              <img src={article.data.heroImage} alt={article.data.heroAlt} />
+              <div>
+                <span>{article.data.category}</span>
+                <h3>{article.data.title}</h3>
+                <p>{article.data.description}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</BaseLayout>
