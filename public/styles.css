@@ -696,6 +696,32 @@ input {
   line-height: 1.85;
 }
 
+.article-sources {
+  margin-top: 64px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.article-sources h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.article-sources ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-sources a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-decoration-color: rgba(198, 255, 70, 0.35);
+  text-underline-offset: 4px;
+}
+
 .archive-hero {
   display: grid;
   min-height: 58vh;

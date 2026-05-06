@@ -18,6 +18,14 @@ const articulos = defineCollection({
     years: z.string(),
     verdict: z.string(),
     tags: z.array(z.string()),
+    sources: z
+      .array(
+        z.object({
+          title: z.string(),
+          url: z.string().url(),
+        })
+      )
+      .optional(),
     draft: z.boolean().default(false),
   }),
 });
