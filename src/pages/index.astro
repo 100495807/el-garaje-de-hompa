@@ -1,0 +1,184 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const allArticles = await getCollection("articulos", ({ data }) => !data.draft);
+const articles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const hero = articles[0];
+
+const upcoming = [
+  {
+    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=84",
+    alt: "Interior deportivo con volante clasico",
+    category: "Usado inteligente",
+    title: "BMW Serie 3 E46: todavia brillante, pero ya no perdona compras rapidas",
+    description: "Guia practica para separar una buena unidad de una factura larga.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=900&q=84",
+    alt: "Deportivo moderno visto desde atras",
+    category: "Deportivo moderno",
+    title: "Toyota GR86: el coche nuevo que todavia entiende a los conductores",
+    description: "Ligereza, motor atmosferico y una pregunta incomoda: cuanto tiempo queda de esto.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=900&q=84",
+    alt: "Coche clasico rojo aparcado",
+    category: "Clasico con caracter",
+    title: "Alfa Romeo GTV: belleza, riesgo y esa parte irracional que tambien cuenta",
+    description: "No siempre gana el coche mas logico. A veces gana el que te deja mirando atras.",
+  },
+];
+---
+
+<BaseLayout
+  title="El Garaje de Hompa | Revista diaria de coches"
+  description="El Garaje de Hompa, una revista diaria de coches con opinion honesta, guias de compra y cultura automovilistica."
+>
+  <main>
+    <section class="hero" id="hoy" aria-labelledby="hero-title">
+      <img class="hero-image" src={hero.data.heroImage} alt={hero.data.heroAlt} />
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="issue-label" data-animate>Articulo del dia</p>
+        <h1 id="hero-title" data-animate>{hero.data.title}</h1>
+        <p class="hero-summary" data-animate>{hero.data.description}</p>
+        <div class="hero-actions" data-animate>
+          <a class="primary-action" href={`/articulos/${hero.id}/`}>Leer analisis</a>
+          <a class="secondary-action" href="#ficha">Ver ficha rapida</a>
+        </div>
+      </div>
+      <aside class="hero-panel" id="ficha" data-animate aria-label="Ficha rapida">
+        <span>{hero.data.category}</span>
+        <strong>{hero.data.years}</strong>
+        <p>{hero.data.verdict}</p>
+      </aside>
+    </section>
+
+    <section class="ticker" aria-label="Agenda editorial">
+      <div class="ticker-track">
+        <span>Lunes: clasicos europeos</span>
+        <span>Martes: japoneses con culto</span>
+        <span>Miercoles: usados inteligentes</span>
+        <span>Jueves: novedades</span>
+        <span>Viernes: deportivos</span>
+        <span>Sabado: guias de compra</span>
+        <span>Domingo: rarezas con encanto</span>
+        <span aria-hidden="true">Lunes: clasicos europeos</span>
+        <span aria-hidden="true">Martes: japoneses con culto</span>
+        <span aria-hidden="true">Miercoles: usados inteligentes</span>
+        <span aria-hidden="true">Jueves: novedades</span>
+        <span aria-hidden="true">Viernes: deportivos</span>
+        <span aria-hidden="true">Sabado: guias de compra</span>
+        <span aria-hidden="true">Domingo: rarezas con encanto</span>
+      </div>
+    </section>
+
+    <section class="section editorial-grid" id="lectura">
+      <div class="section-kicker" data-animate>La lectura rapida</div>
+      <div class="article-lead" data-animate>
+        <h2>La revista no va de venderte suenos: va de decirte que coche tiene sentido.</h2>
+        <p>
+          Cada pieza mezcla historia, sensaciones, problemas conocidos y la pregunta que importa antes de
+          comprar: si el coche todavia merece tu dinero hoy.
+        </p>
+      </div>
+      <div class="opinion-strip" data-animate>
+        <article>
+          <span>Lo bueno</span>
+          <p>Direccion comunicativa, peso contenido y mecanica sencilla.</p>
+        </article>
+        <article>
+          <span>Lo malo</span>
+          <p>Oxido, unidades mal cuidadas y precios que ya no son una broma.</p>
+        </article>
+        <article>
+          <span>Veredicto</span>
+          <p>{hero.data.verdict}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="feature-band">
+      <div class="feature-copy" data-animate>
+        <p class="section-kicker">Tono editorial</p>
+        <h2>Premium visual, criterio de garaje.</h2>
+        <p>
+          El diseno tiene que sentirse caro, pero la voz debe sonar cercana: opinion clara, datos utiles y
+          cero reverencia automatica por el logo del capo.
+        </p>
+      </div>
+      <div class="feature-media" data-animate>
+        <img
+          src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=86"
+          alt="Coche deportivo negro iluminado en estudio"
+        />
+      </div>
+    </section>
+
+    <section class="section archive-section" id="archivo">
+      <div class="section-heading" data-animate>
+        <p class="section-kicker">Archivo editorial</p>
+        <h2>Proximos articulos</h2>
+      </div>
+      <div class="article-cards">
+        {
+          upcoming.map((item) => (
+            <article class="article-card" data-animate>
+              <img src={item.image} alt={item.alt} />
+              <div>
+                <span>{item.category}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="guide-board" id="guias">
+      <div class="guide-inner">
+        <div data-animate>
+          <p class="section-kicker">Guias</p>
+          <h2>Antes de comprar, tres preguntas.</h2>
+        </div>
+        <div class="guide-list">
+          <article data-animate>
+            <span>01</span>
+            <h3>Que falla?</h3>
+            <p>Averias tipicas, recambios, oxido, electronica y coste de ponerlo fino.</p>
+          </article>
+          <article data-animate>
+            <span>02</span>
+            <h3>Que version?</h3>
+            <p>Motor recomendable, acabados, cambios manuales o automaticos y anos a evitar.</p>
+          </article>
+          <article data-animate>
+            <span>03</span>
+            <h3>Cuanto pagar?</h3>
+            <p>Rango realista, senales de unidad inflada y alternativas si el mercado se ha ido arriba.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter" id="newsletter">
+      <div class="newsletter-copy" data-animate>
+        <p class="section-kicker">Resumen semanal</p>
+        <h2>Siete coches, una opinion clara.</h2>
+        <p>
+          La newsletter puede convertirse en el producto mas personal de la revista: menos ruido, mas
+          criterio y una seleccion de coches que merece la pena vigilar.
+        </p>
+      </div>
+      <form class="newsletter-form" data-animate>
+        <label for="email">Correo</label>
+        <div>
+          <input id="email" type="email" placeholder="tu@email.com" autocomplete="email" />
+          <button type="submit">Apuntarme</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</BaseLayout>

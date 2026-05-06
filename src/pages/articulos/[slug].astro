@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articulos", ({ data }) => !data.draft);
+
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={`${article.data.title} | El Garaje de Hompa`} description={article.data.description}>
+  <main>
+    <article class="article-page">
+      <header class="article-hero">
+        <img src={article.data.heroImage} alt={article.data.heroAlt} />
+        <div class="article-hero-shade" aria-hidden="true"></div>
+        <div class="article-hero-content">
+          <p class="issue-label" data-animate>{article.data.category}</p>
+          <h1 data-animate>{article.data.title}</h1>
+          <p data-animate>{article.data.description}</p>
+        </div>
+      </header>
+
+      <section class="article-shell">
+        <aside class="article-meta" data-animate aria-label="Datos rapidos">
+          <span>Coche</span>
+          <strong>{article.data.car}</strong>
+          <span>Anios</span>
+          <strong>{article.data.years}</strong>
+          <span>Veredicto</span>
+          <p>{article.data.verdict}</p>
+        </aside>
+        <div class="article-body" data-animate>
+          <Content />
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="scroll-meter" aria-hidden="true"></div>
+
+    <header class="site-header" data-animate>
+      <a class="brand" href="/" aria-label="El Garaje de Hompa inicio">
+        <span class="brand-mark">GH</span>
+        <span>El Garaje de Hompa</span>
+      </a>
+      <nav class="main-nav" aria-label="Secciones principales">
+        <a href="/#hoy">Hoy</a>
+        <a href="/#archivo">Archivo</a>
+        <a href="/#guias">Guias</a>
+        <a href="/#newsletter">Newsletter</a>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="site-footer">
+      <p>El Garaje de Hompa</p>
+      <p>Revista diaria de coches con opinion, datos y cultura de compra.</p>
+    </footer>
+
+    <script src="/script.js" is:inline></script>
+  </body>
+</html>
