@@ -15,7 +15,12 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 ---
 
-<BaseLayout title={`${article.data.title} | El Garaje de Hompa`} description={article.data.description}>
+<BaseLayout
+  title={`${article.data.title} | El Garaje de Hompa`}
+  description={article.data.description}
+  image={article.data.heroImage}
+  type="article"
+>
   <main>
     <article class="article-page">
       <header class="article-hero">

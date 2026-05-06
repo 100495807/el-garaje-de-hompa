@@ -48,6 +48,12 @@ La revista se publica desde GitHub Pages:
 https://100495807.github.io/el-garaje-de-hompa/
 ```
 
+Feed RSS:
+
+```text
+https://100495807.github.io/el-garaje-de-hompa/rss.xml
+```
+
 Los articulos viven en `src/content/articulos/` como archivos Markdown. La portada muestra automaticamente el articulo publicado mas reciente.
 
 Para trabajar en local:

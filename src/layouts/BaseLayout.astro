@@ -2,11 +2,17 @@
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  type?: "website" | "article";
 }
 
-const { title, description } = Astro.props;
+const { title, description, image = "https://commons.wikimedia.org/wiki/Special:FilePath/BMW%20E46%20sedan.jpg", type = "website" } =
+  Astro.props;
 const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
+const canonical = Astro.url.href;
+const rssUrl = new URL(withBase("rss.xml"), Astro.site).toString();
+const socialImage = image.startsWith("http") ? image : new URL(withBase(image), Astro.site).toString();
 ---
 
 <!doctype html>
@@ -16,8 +22,20 @@ const withBase = (path: string) => `${base}${path.replace(/^\//, "")}`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="El Garaje de Hompa" href={rssUrl} />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href={withBase("styles.css")} />
+    <meta property="og:site_name" content="El Garaje de Hompa" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
   </head>
   <body>
     <div class="scroll-meter" aria-hidden="true"></div>
