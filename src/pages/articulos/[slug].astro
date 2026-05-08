@@ -13,6 +13,30 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const articleUrl = new URL(`${base}articulos/${article.id}/`, Astro.site).toString();
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: article.data.title,
+  description: article.data.description,
+  image: article.data.heroImage,
+  datePublished: article.data.pubDate.toISOString(),
+  dateModified: article.data.pubDate.toISOString(),
+  mainEntityOfPage: articleUrl,
+  articleSection: article.data.category,
+  keywords: article.data.tags.join(", "),
+  inLanguage: "es-ES",
+  author: {
+    "@type": "Person",
+    name: "Hompa",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "El Garaje de Hompa",
+    url: new URL(base, Astro.site).toString(),
+  },
+};
 ---
 
 <BaseLayout
@@ -20,6 +44,10 @@ const { Content } = await render(article);
   description={article.data.description}
   image={article.data.heroImage}
   type="article"
+  publishedTime={article.data.pubDate.toISOString()}
+  section={article.data.category}
+  tags={article.data.tags}
+  jsonLd={articleJsonLd}
 >
   <main>
     <article class="article-page">

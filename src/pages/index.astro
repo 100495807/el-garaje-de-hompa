@@ -8,12 +8,28 @@ const hero = articles[0];
 const latestArticles = articles.slice(1, 4);
 const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const heroNotes = hero.data.buyerNotes ?? [];
+const siteUrl = new URL(base, Astro.site).toString();
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "El Garaje de Hompa",
+  url: siteUrl,
+  inLanguage: "es-ES",
+  description:
+    "Revista diaria de coches con opinion honesta, guias de compra y cultura automovilistica.",
+  publisher: {
+    "@type": "Organization",
+    name: "El Garaje de Hompa",
+    url: siteUrl,
+  },
+};
 ---
 
 <BaseLayout
   title="El Garaje de Hompa | Revista diaria de coches"
   description="El Garaje de Hompa, una revista diaria de coches con opinion honesta, guias de compra y cultura automovilistica."
   image={hero.data.heroImage}
+  jsonLd={homeJsonLd}
 >
   <main>
     <section class="hero" id="hoy" aria-labelledby="hero-title">

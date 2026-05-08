@@ -13,12 +13,28 @@ const normalize = (value: string) =>
     .toLocaleLowerCase("es")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+const archiveUrl = new URL(`${base}archivo/`, Astro.site).toString();
+const archiveJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Archivo | El Garaje de Hompa",
+  url: archiveUrl,
+  inLanguage: "es-ES",
+  description: "Archivo de articulos publicados en El Garaje de Hompa.",
+  hasPart: articles.map((article) => ({
+    "@type": "Article",
+    headline: article.data.title,
+    url: new URL(`${base}articulos/${article.id}/`, Astro.site).toString(),
+    datePublished: article.data.pubDate.toISOString(),
+  })),
+};
 ---
 
 <BaseLayout
   title="Archivo | El Garaje de Hompa"
   description="Archivo de articulos publicados en El Garaje de Hompa."
   image="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=2200&q=84"
+  jsonLd={archiveJsonLd}
 >
   <main>
     <section class="archive-hero">

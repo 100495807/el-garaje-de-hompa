@@ -64,6 +64,11 @@ npm run new:article -- "Nombre del coche"
 
 El flujo editorial completo esta en `docs/flujo-editorial.md`.
 
+Notas utiles:
+
+- Dominio propio: `docs/dominio.md`
+- Estadisticas y SEO: `docs/estadisticas.md`
+
 Para trabajar en local:
 
 ```bash
