@@ -56,6 +56,14 @@ https://100495807.github.io/el-garaje-de-hompa/rss.xml
 
 Los articulos viven en `src/content/articulos/` como archivos Markdown. La portada muestra automaticamente el articulo publicado mas reciente.
 
+Para crear un borrador nuevo:
+
+```bash
+npm run new:article -- "Nombre del coche"
+```
+
+El flujo editorial completo esta en `docs/flujo-editorial.md`.
+
 Para trabajar en local:
 
 ```bash
