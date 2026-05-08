@@ -41,9 +41,49 @@ const { Content } = await render(article);
           <strong>{article.data.years}</strong>
           <span>Veredicto</span>
           <p>{article.data.verdict}</p>
+          <div class="article-tags" aria-label="Etiquetas">
+            {article.data.tags.map((tag) => <em>{tag}</em>)}
+          </div>
         </aside>
         <div class="article-body" data-animate>
+          {
+            article.data.buyerNotes?.length ? (
+              <section class="buying-scan" aria-label="Resumen rapido de compra">
+                {article.data.buyerNotes.map((note) => (
+                  <article>
+                    <span>{note.label}</span>
+                    <p>{note.text}</p>
+                  </article>
+                ))}
+              </section>
+            ) : null
+          }
+
           <Content />
+
+          {
+            article.data.gallery?.length ? (
+              <section class="article-gallery" aria-labelledby="gallery-title">
+                <div class="gallery-heading">
+                  <p class="section-kicker">Mirar antes de opinar</p>
+                  <h2 id="gallery-title">El coche, en detalle</h2>
+                </div>
+                <div class="gallery-grid">
+                  {article.data.gallery.map((image, index) => (
+                    <figure class={index === 0 ? "gallery-card gallery-card-large" : "gallery-card"}>
+                      <img src={image.src} alt={image.alt} loading={index === 0 ? "eager" : "lazy"} />
+                      <figcaption>
+                        <strong>{image.caption}</strong>
+                        <a href={image.source} target="_blank" rel="noreferrer">
+                          {image.credit}
+                        </a>
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </section>
+            ) : null
+          }
 
           {
             article.data.sources?.length ? (
