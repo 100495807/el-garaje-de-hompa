@@ -20,7 +20,7 @@ El comando crea un Markdown en `src/content/articulos/` con `draft: true`. Mient
 
 1. Elegir el coche y definir el angulo.
 2. Buscar 3-4 fotos correctas con licencia clara.
-3. Rellenar ficha: anos, categoria, veredicto, tags y notas de compra.
+3. Rellenar ficha: anos, categoria, veredicto, tags, notas de compra y licencia de cada imagen.
 4. Escribir el texto siguiendo la plantilla.
 5. Revisar que las imagenes son del coche correcto.
 6. Cambiar `draft: true` a `draft: false`.
@@ -46,7 +46,25 @@ Cada articulo deberia tener como minimo:
 - Foto interior.
 - Foto de detalle, version, motor o punto de compra.
 - Pie de foto con una idea util, no solo descripcion.
-- Credito y enlace de fuente.
+- Credito, licencia y enlace de fuente.
+
+## Regla de licencias
+
+Citar no siempre es suficiente. Antes de usar una imagen, confirma que su licencia permite reutilizacion, especialmente si la revista puede monetizarse en el futuro.
+
+Prioridad recomendada:
+
+- Fotos propias.
+- Fotos oficiales de prensa con permiso de uso editorial claro.
+- Wikimedia Commons con licencias tipo CC BY, CC BY-SA, CC0 o dominio publico.
+
+Evita:
+
+- Fotos de anuncios de compraventa.
+- Fotos de Instagram, foros o blogs sin licencia.
+- Imagenes de prensa si la marca no permite reutilizacion editorial.
+
+En la galeria, cada imagen debe tener `credit`, `license` y `source`. Si la licencia no esta clara, no publiques esa imagen.
 
 ## Regla de tono
 

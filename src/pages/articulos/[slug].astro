@@ -74,9 +74,13 @@ const { Content } = await render(article);
                       <img src={image.src} alt={image.alt} loading={index === 0 ? "eager" : "lazy"} />
                       <figcaption>
                         <strong>{image.caption}</strong>
-                        <a href={image.source} target="_blank" rel="noreferrer">
-                          {image.credit}
-                        </a>
+                        <div class="gallery-credit">
+                          <span>{image.credit}</span>
+                          <span>Licencia: {image.license}</span>
+                          <a href={image.source} target="_blank" rel="noreferrer">
+                            Ver fuente
+                          </a>
+                        </div>
                       </figcaption>
                     </figure>
                   ))}

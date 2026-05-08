@@ -25,6 +25,7 @@ const articulos = defineCollection({
           alt: z.string(),
           caption: z.string(),
           credit: z.string(),
+          license: z.string(),
           source: z.string().url(),
         })
       )
