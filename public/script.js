@@ -3,6 +3,7 @@ const scrollMeter = document.querySelector(".scroll-meter");
 const heroImage = document.querySelector(".hero-image");
 const cards = document.querySelectorAll(".article-card");
 const newsletterForm = document.querySelector(".newsletter-form");
+const archive = document.querySelector("[data-archive]");
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -75,5 +76,71 @@ newsletterForm?.addEventListener("submit", (event) => {
     button.textContent = original;
   }, 1800);
 });
+
+if (archive) {
+  const searchInput = archive.querySelector("[data-archive-search]");
+  const archiveCards = [...archive.querySelectorAll("[data-archive-card]")];
+  const count = archive.querySelector("[data-archive-count]");
+  const empty = archive.querySelector("[data-archive-empty]");
+  const reset = archive.querySelector("[data-archive-reset]");
+  const filters = {
+    category: "all",
+    tag: "all",
+  };
+
+  const normalize = (value) =>
+    value
+      .toLocaleLowerCase("es")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+
+  const applyArchiveFilters = () => {
+    const query = normalize(searchInput.value);
+    let visible = 0;
+
+    archiveCards.forEach((card) => {
+      const matchesSearch = !query || card.dataset.search.includes(query);
+      const matchesCategory = filters.category === "all" || card.dataset.category === filters.category;
+      const matchesTag = filters.tag === "all" || card.dataset.tags.includes(`|${filters.tag}|`);
+      const shouldShow = matchesSearch && matchesCategory && matchesTag;
+
+      card.hidden = !shouldShow;
+      if (shouldShow) {
+        visible += 1;
+      }
+    });
+
+    count.textContent = visible;
+    empty.hidden = visible !== 0;
+  };
+
+  archive.querySelectorAll("[data-filter-type]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const group = button.dataset.filterType;
+      filters[group] = button.dataset.filterValue;
+
+      archive.querySelectorAll(`[data-filter-type="${group}"]`).forEach((item) => {
+        item.classList.toggle("is-active", item === button);
+      });
+
+      applyArchiveFilters();
+    });
+  });
+
+  searchInput.addEventListener("input", applyArchiveFilters);
+
+  reset.addEventListener("click", () => {
+    searchInput.value = "";
+    filters.category = "all";
+    filters.tag = "all";
+
+    archive.querySelectorAll("[data-filter-type]").forEach((button) => {
+      button.classList.toggle("is-active", button.dataset.filterValue === "all");
+    });
+
+    applyArchiveFilters();
+  });
+}
 
 updateScroll();
